@@ -1,0 +1,20 @@
+{
+	"MQTT" :
+		{
+			"mqtt_broker"	: "127.0.0.1",
+			"mqtt_port"		: 1883,
+			"mqtt_topic" 	: "export_db_cloud",
+			"mqtt_username"	: "",
+			"mqtt_password"	: ""
+		},
+	"REST_API" :
+	{		"base_url_auth"	: "https://service-energydevicemanagement-uat.tesvolt.com",
+			"base_url_data" : "https://service-energydatacollector-uat.tesvolt.com",
+			"username"		: "andreas",
+			"password"		: "Andreas123$"
+		},
+	"ConData" :
+		{
+			"update_interval"	: 1
+		}
+}
