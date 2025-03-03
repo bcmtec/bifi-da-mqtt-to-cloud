@@ -14,8 +14,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      packages: write # Erlaubt dass Images auf GHCR gepusht werden können mit "secrets.GITHUB_TOKEN"
-      contents: read # Erlaubt den Zugriff auf die Repo mit "secrets.GITHUB_TOKEN"
+      packages: write # Erlaubt dass Images auf GHCR gepusht werden können mit "secrets.GITHUB_TOKEN".
+      contents: read # Erlaubt den Zugriff auf die Repo mit "secrets.GITHUB_TOKEN".
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
