@@ -4,8 +4,8 @@
 			"mqtt_broker"	: "127.0.0.1",
 			"mqtt_port"		: 1883,
 			"mqtt_topic" 	: "export_db_cloud",
-			"mqtt_username"	: "",
-			"mqtt_password"	: ""
+			"mqtt_username"	: "bifi",
+			"mqtt_password"	: "bifi"
 		},
 	"REST_API" :
 	{		"base_url_auth"	: "https://service-energydevicemanagement-uat.tesvolt.com",
