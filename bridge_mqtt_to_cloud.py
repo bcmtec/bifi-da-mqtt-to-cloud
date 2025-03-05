@@ -209,7 +209,7 @@ def refresh_api_key():
 
 # Data send
 def send_json_data(data):
-    logging.info("API - Send Data")
+    logging.info("API - Send Data - Start")
 
     headers = {
         'X-API-KEY': api_key,
@@ -218,24 +218,29 @@ def send_json_data(data):
     }
 
     url = base_url_data + "/api/v2/livedata"
-    logging.info("API - LiveData_URL: " + url)
+    logging.info("API - Send Data - LiveData_URL: " + url)
 
-    response = requests.post(url, headers=headers, json=data, verify=True)
-
-    if 200 <= response.status_code <= 299:
-        logging.info(f"API - Data Transfer - Success: {response.text}")
-    elif response.status_code == 401:
-        logging.info(f"API - Data Transfer Failed with status {response.status_code}, response: {response.text}")
-
-        refresh_api_key()
-        headers["X-API-KEY"] = api_key
-
-        response = requests.post(url, headers=headers, json=data, verify=True)  # Erneut senden
-    elif response.status_code == 404:
-        logging.info("API - Connection Problem")
-        logging.info(f"API - Data Transfer Failed with status {response.status_code}, response: {response.text}")
+    try:
+        response = requests.post(url, headers=headers, json=data, verify=True)
+    except ConnectionError:
+        logging.info("API - Send Data - Connection Error")
     else:
-        logging.info(f"API - Data Transfer Failed with status {response.status_code}, response: {response.text}")
+        if 200 <= response.status_code <= 299:
+            logging.info(f"API - Send Data - Success")
+        elif response.status_code == 401:
+            logging.info(f"API - Send Data - Failed with status {response.status_code}, response: {response.text}")
+
+            refresh_api_key()
+            headers["X-API-KEY"] = api_key
+
+            response = requests.post(url, headers=headers, json=data, verify=True)  # Erneut senden
+        elif response.status_code == 404:
+            logging.info(f"API - Send Data - Connection Problem")
+            logging.info(f"API - Send Data - Failed with status {response.status_code}, response: {response.text}")
+        else:
+            logging.info(f"API - Send Data - Failed with status {response.status_code}, response: {response.text}")
+    finally:
+        logging.info("API - Send Data - Stop")
 
 if __name__ == "__main__":
     # client id holen
@@ -266,4 +271,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logging.info("Shutting down client...")
         client.disconnect()
-#
